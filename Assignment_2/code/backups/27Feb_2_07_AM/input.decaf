@@ -1,0 +1,20 @@
+// This comment allowed!!
+/* This is allowed */
+
+class myclass
+{
+	int a[];
+	int f;
+	int x,y,z;
+	public static int method ( int a, int b, float c) 
+	{ 
+		return ;
+		;
+		break;
+		return as;
+	}
+	public myclass(int x, int z) 
+	{ 
+		return; 
+	}
+}

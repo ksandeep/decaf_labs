@@ -1,0 +1,9 @@
+class c1 
+{
+	int i;
+	c1 a;
+	int func1(int i,int i)
+	{
+		int x;
+	}
+}

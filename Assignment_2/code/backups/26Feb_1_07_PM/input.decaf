@@ -1,0 +1,61 @@
+// This comment allowed!!
+/* This is allowed */
+
+class myclass
+{
+	int a[];
+	int f;
+	int x,y,z;
+	public static int method ( int a, int b, float c) 
+	{ 
+		{
+			int a[][][];
+			float abd;
+
+			// usages for stmt_expr for testing purposes
+			"randomstmtexpr";
+			"The computer simply responded with \"A:\\>\"";
+			32.455;
+			45.3E-23;
+			38473;
+			this_is_identifier;
+			null;
+			true;
+			false;
+			new abc (a_id,b_id,c_id);
+			this;
+			this.element;
+			super;
+			( this_is_an_identifier );
+
+
+			// usages for stmt_expr end
+			
+			return;	
+			for (a;b;c)
+				continue;
+
+		}
+		break; 
+		; 
+		continue; 
+		return xyz; 
+		while(sandy) 
+		continue; 
+	}
+	public myclass(int x, int z) 
+	{ 
+		if (sandy) break; 
+		return;  
+	}
+}
+
+class abc
+{
+
+	public static void func(float abc) 
+	{ 
+		for(sandy;ukay;) 
+			break;
+	}
+}

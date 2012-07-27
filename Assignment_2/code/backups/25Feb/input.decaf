@@ -1,0 +1,8 @@
+class myclass
+{
+	int a[];
+	int f;
+	int x,y,z;
+	32 abc;
+	public static int method ( int a, int b, float c) whats 
+}

@@ -1,0 +1,39 @@
+class myclass
+{
+	int a[];
+	int f;
+	int x,y,z;
+	public static int method ( int a, int b, float c) 
+	{ 
+		{
+			int a;
+			float abd;
+			stmtexpr;
+			return;	
+			for (a;b;c)
+				continue;
+
+		}
+		break; 
+		; 
+		continue; 
+		return xyz; 
+		while(sandy) 
+		continue; 
+	}
+	public myclass(int x, int z) 
+	{ 
+		if (sandy) break; 
+		return;  
+	}
+}
+
+class abc
+{
+
+	public static void func(float abc) 
+	{ 
+		for(sandy;ukay;) 
+			break;
+	}
+}

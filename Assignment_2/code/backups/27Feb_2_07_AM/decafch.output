@@ -1,0 +1,1670 @@
+Terminals unused in grammar
+
+   SYN_ERR
+   FOR
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: /* empty */
+    2        | class_decl_multi
+
+    3 class_decl_multi: class_decl
+    4                 | class_decl_multi class_decl
+
+    5 class_decl: CLASS ID class_body
+    6           | CLASS ID EXTEND ID class_body
+    7           | COMMENT
+
+    8 class_body: OPEN_BRACE class_body_elems CLOSE_BRACE
+
+    9 class_body_elems: class_body_decl
+   10                 | class_body_elems class_body_decl
+
+   11 class_body_decl: field_decl
+   12                | method_decl
+   13                | constructor_decl
+
+   14 field_decl: modifier var_decl
+
+   15 modifier: /* empty */
+   16         | PUBLIC
+   17         | PUBLIC STATIC
+   18         | PRIVATE
+   19         | PRIVATE STATIC
+   20         | STATIC
+
+   21 var_decl: type variables SEMI_COLON
+
+   22 type: INT
+   23     | FLOAT
+   24     | BOOLEAN
+   25     | ID
+
+   26 variables: variable
+   27          | variables COMMA variable
+
+   28 variable: ID sqr_brkt_mult
+
+   29 sqr_brkt_mult: /* empty */
+   30              | sqr_brkt_mult OPEN_SQR_BRACKET CLOSE_SQR_BRACKET
+
+   31 method_decl: modifier type ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   32            | modifier type ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+   33            | modifier VOID ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   34            | modifier VOID ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+
+   35 constructor_decl: modifier ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   36                 | modifier ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+
+   37 formals: formal_param
+   38        | formals COMMA formal_param
+
+   39 formal_param: type variable
+
+   40 block: OPEN_BRACE stmt_mult CLOSE_BRACE
+
+   41 stmt_mult: stmt
+   42          | stmt_mult stmt
+
+   43 stmt: SEMI_COLON
+   44     | BREAK SEMI_COLON
+   45     | CONTINUE SEMI_COLON
+   46     | RETURN SEMI_COLON
+   47     | RETURN expr SEMI_COLON
+   48     | WHILE OPEN_PARANTHESIS expr CLOSE_PARANTHESIS stmt
+   49     | block
+   50     | var_decl
+   51     | COMMENT
+   52     | if_stmt
+   53     | if_else_stmt
+
+   54 if_stmt: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS stmt
+
+   55 if_else_stmt: ELSE stmt
+
+   56 expr: primary
+
+   57 primary: literal
+   58        | THIS
+   59        | SUPER
+   60        | OPEN_PARANTHESIS expr CLOSE_PARANTHESIS
+   61        | NEW ID OPEN_PARANTHESIS CLOSE_PARANTHESIS
+   62        | NEW ID OPEN_PARANTHESIS arguments CLOSE_PARANTHESIS
+   63        | lhs
+
+   64 literal: int_const
+   65        | float_const
+   66        | string_const
+   67        | NULL_TOKEN
+   68        | TRUE
+   69        | FALSE
+
+   70 int_const: INT_CONST
+
+   71 float_const: FLOAT_CONST
+   72            | FLOAT_CONST_MANTISSA
+
+   73 string_const: STRING_CONST
+
+   74 arguments: expr
+   75          | arguments COMMA expr
+
+   76 lhs: array_access
+   77    | field_access
+   78    | method_invocation
+
+   79 array_access: primary OPEN_SQR_BRACKET expr CLOSE_SQR_BRACKET
+
+   80 field_access: primary DOT ID
+   81             | ID
+
+   82 method_invocation: field_access OPEN_PARANTHESIS CLOSE_PARANTHESIS
+   83                  | field_access OPEN_PARANTHESIS arguments CLOSE_PARANTHESIS
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+INT_CONST (258) 70
+FLOAT_CONST (259) 71
+STRING_CONST (260) 73
+FLOAT_CONST_MANTISSA (261) 72
+ID (262) 5 6 25 28 31 32 33 34 35 36 61 62 80 81
+COMMENT (263) 7 51
+SYN_ERR (264)
+INT (265) 22
+FLOAT (266) 23
+IF (267) 54
+ELSE (268) 55
+WHILE (269) 48
+FOR (270)
+RETURN (271) 46 47
+BREAK (272) 44
+CONTINUE (273) 45
+NULL_TOKEN (274) 67
+TRUE (275) 68
+FALSE (276) 69
+THIS (277) 58
+SUPER (278) 59
+NEW (279) 61 62
+CLASS (280) 5 6
+EXTEND (281) 6
+OPEN_BRACE (282) 8 40
+CLOSE_BRACE (283) 8 40
+SEMI_COLON (284) 21 43 44 45 46 47
+STATIC (285) 17 19 20
+PUBLIC (286) 16 17
+PRIVATE (287) 18 19
+BOOLEAN (288) 24
+COMMA (289) 27 38 75
+DOT (290) 80
+OPEN_PARANTHESIS (291) 31 32 33 34 35 36 48 54 60 61 62 82 83
+CLOSE_PARANTHESIS (292) 31 32 33 34 35 36 48 54 60 61 62 82 83
+OPEN_SQR_BRACKET (293) 30 79
+CLOSE_SQR_BRACKET (294) 30 79
+VOID (295) 33 34
+
+
+Nonterminals, with rules where they appear
+
+$accept (41)
+    on left: 0
+program (42)
+    on left: 1 2, on right: 0
+class_decl_multi (43)
+    on left: 3 4, on right: 2 4
+class_decl (44)
+    on left: 5 6 7, on right: 3 4
+class_body (45)
+    on left: 8, on right: 5 6
+class_body_elems (46)
+    on left: 9 10, on right: 8 10
+class_body_decl (47)
+    on left: 11 12 13, on right: 9 10
+field_decl (48)
+    on left: 14, on right: 11
+modifier (49)
+    on left: 15 16 17 18 19 20, on right: 14 31 32 33 34 35 36
+var_decl (50)
+    on left: 21, on right: 14 50
+type (51)
+    on left: 22 23 24 25, on right: 21 31 32 39
+variables (52)
+    on left: 26 27, on right: 21 27
+variable (53)
+    on left: 28, on right: 26 27 39
+sqr_brkt_mult (54)
+    on left: 29 30, on right: 28 30
+method_decl (55)
+    on left: 31 32 33 34, on right: 12
+constructor_decl (56)
+    on left: 35 36, on right: 13
+formals (57)
+    on left: 37 38, on right: 32 34 36 38
+formal_param (58)
+    on left: 39, on right: 37 38
+block (59)
+    on left: 40, on right: 31 32 33 34 35 36 49
+stmt_mult (60)
+    on left: 41 42, on right: 40 42
+stmt (61)
+    on left: 43 44 45 46 47 48 49 50 51 52 53, on right: 41 42 48 54
+    55
+if_stmt (62)
+    on left: 54, on right: 52
+if_else_stmt (63)
+    on left: 55, on right: 53
+expr (64)
+    on left: 56, on right: 47 48 54 60 74 75 79
+primary (65)
+    on left: 57 58 59 60 61 62 63, on right: 56 79 80
+literal (66)
+    on left: 64 65 66 67 68 69, on right: 57
+int_const (67)
+    on left: 70, on right: 64
+float_const (68)
+    on left: 71 72, on right: 65
+string_const (69)
+    on left: 73, on right: 66
+arguments (70)
+    on left: 74 75, on right: 62 75 83
+lhs (71)
+    on left: 76 77 78, on right: 63
+array_access (72)
+    on left: 79, on right: 76
+field_access (73)
+    on left: 80 81, on right: 77 82 83
+method_invocation (74)
+    on left: 82 83, on right: 78
+
+
+state 0
+
+    0 $accept: . program $end
+
+    COMMENT  shift, and go to state 1
+    CLASS    shift, and go to state 2
+
+    $default  reduce using rule 1 (program)
+
+    program           go to state 3
+    class_decl_multi  go to state 4
+    class_decl        go to state 5
+
+
+state 1
+
+    7 class_decl: COMMENT .
+
+    $default  reduce using rule 7 (class_decl)
+
+
+state 2
+
+    5 class_decl: CLASS . ID class_body
+    6           | CLASS . ID EXTEND ID class_body
+
+    ID  shift, and go to state 6
+
+
+state 3
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 7
+
+
+state 4
+
+    2 program: class_decl_multi .
+    4 class_decl_multi: class_decl_multi . class_decl
+
+    COMMENT  shift, and go to state 1
+    CLASS    shift, and go to state 2
+
+    $default  reduce using rule 2 (program)
+
+    class_decl  go to state 8
+
+
+state 5
+
+    3 class_decl_multi: class_decl .
+
+    $default  reduce using rule 3 (class_decl_multi)
+
+
+state 6
+
+    5 class_decl: CLASS ID . class_body
+    6           | CLASS ID . EXTEND ID class_body
+
+    EXTEND      shift, and go to state 9
+    OPEN_BRACE  shift, and go to state 10
+
+    class_body  go to state 11
+
+
+state 7
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 8
+
+    4 class_decl_multi: class_decl_multi class_decl .
+
+    $default  reduce using rule 4 (class_decl_multi)
+
+
+state 9
+
+    6 class_decl: CLASS ID EXTEND . ID class_body
+
+    ID  shift, and go to state 12
+
+
+state 10
+
+    8 class_body: OPEN_BRACE . class_body_elems CLOSE_BRACE
+
+    STATIC   shift, and go to state 13
+    PUBLIC   shift, and go to state 14
+    PRIVATE  shift, and go to state 15
+
+    $default  reduce using rule 15 (modifier)
+
+    class_body_elems  go to state 16
+    class_body_decl   go to state 17
+    field_decl        go to state 18
+    modifier          go to state 19
+    method_decl       go to state 20
+    constructor_decl  go to state 21
+
+
+state 11
+
+    5 class_decl: CLASS ID class_body .
+
+    $default  reduce using rule 5 (class_decl)
+
+
+state 12
+
+    6 class_decl: CLASS ID EXTEND ID . class_body
+
+    OPEN_BRACE  shift, and go to state 10
+
+    class_body  go to state 22
+
+
+state 13
+
+   20 modifier: STATIC .
+
+    $default  reduce using rule 20 (modifier)
+
+
+state 14
+
+   16 modifier: PUBLIC .
+   17         | PUBLIC . STATIC
+
+    STATIC  shift, and go to state 23
+
+    $default  reduce using rule 16 (modifier)
+
+
+state 15
+
+   18 modifier: PRIVATE .
+   19         | PRIVATE . STATIC
+
+    STATIC  shift, and go to state 24
+
+    $default  reduce using rule 18 (modifier)
+
+
+state 16
+
+    8 class_body: OPEN_BRACE class_body_elems . CLOSE_BRACE
+   10 class_body_elems: class_body_elems . class_body_decl
+
+    CLOSE_BRACE  shift, and go to state 25
+    STATIC       shift, and go to state 13
+    PUBLIC       shift, and go to state 14
+    PRIVATE      shift, and go to state 15
+
+    $default  reduce using rule 15 (modifier)
+
+    class_body_decl   go to state 26
+    field_decl        go to state 18
+    modifier          go to state 19
+    method_decl       go to state 20
+    constructor_decl  go to state 21
+
+
+state 17
+
+    9 class_body_elems: class_body_decl .
+
+    $default  reduce using rule 9 (class_body_elems)
+
+
+state 18
+
+   11 class_body_decl: field_decl .
+
+    $default  reduce using rule 11 (class_body_decl)
+
+
+state 19
+
+   14 field_decl: modifier . var_decl
+   31 method_decl: modifier . type ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   32            | modifier . type ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+   33            | modifier . VOID ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   34            | modifier . VOID ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+   35 constructor_decl: modifier . ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   36                 | modifier . ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+
+    ID       shift, and go to state 27
+    INT      shift, and go to state 28
+    FLOAT    shift, and go to state 29
+    BOOLEAN  shift, and go to state 30
+    VOID     shift, and go to state 31
+
+    var_decl  go to state 32
+    type      go to state 33
+
+
+state 20
+
+   12 class_body_decl: method_decl .
+
+    $default  reduce using rule 12 (class_body_decl)
+
+
+state 21
+
+   13 class_body_decl: constructor_decl .
+
+    $default  reduce using rule 13 (class_body_decl)
+
+
+state 22
+
+    6 class_decl: CLASS ID EXTEND ID class_body .
+
+    $default  reduce using rule 6 (class_decl)
+
+
+state 23
+
+   17 modifier: PUBLIC STATIC .
+
+    $default  reduce using rule 17 (modifier)
+
+
+state 24
+
+   19 modifier: PRIVATE STATIC .
+
+    $default  reduce using rule 19 (modifier)
+
+
+state 25
+
+    8 class_body: OPEN_BRACE class_body_elems CLOSE_BRACE .
+
+    $default  reduce using rule 8 (class_body)
+
+
+state 26
+
+   10 class_body_elems: class_body_elems class_body_decl .
+
+    $default  reduce using rule 10 (class_body_elems)
+
+
+state 27
+
+   25 type: ID .
+   35 constructor_decl: modifier ID . OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   36                 | modifier ID . OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+
+    OPEN_PARANTHESIS  shift, and go to state 34
+
+    $default  reduce using rule 25 (type)
+
+
+state 28
+
+   22 type: INT .
+
+    $default  reduce using rule 22 (type)
+
+
+state 29
+
+   23 type: FLOAT .
+
+    $default  reduce using rule 23 (type)
+
+
+state 30
+
+   24 type: BOOLEAN .
+
+    $default  reduce using rule 24 (type)
+
+
+state 31
+
+   33 method_decl: modifier VOID . ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   34            | modifier VOID . ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+
+    ID  shift, and go to state 35
+
+
+state 32
+
+   14 field_decl: modifier var_decl .
+
+    $default  reduce using rule 14 (field_decl)
+
+
+state 33
+
+   21 var_decl: type . variables SEMI_COLON
+   31 method_decl: modifier type . ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   32            | modifier type . ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+
+    ID  shift, and go to state 36
+
+    variables  go to state 37
+    variable   go to state 38
+
+
+state 34
+
+   35 constructor_decl: modifier ID OPEN_PARANTHESIS . CLOSE_PARANTHESIS block
+   36                 | modifier ID OPEN_PARANTHESIS . formals CLOSE_PARANTHESIS block
+
+    ID                 shift, and go to state 39
+    INT                shift, and go to state 28
+    FLOAT              shift, and go to state 29
+    BOOLEAN            shift, and go to state 30
+    CLOSE_PARANTHESIS  shift, and go to state 40
+
+    type          go to state 41
+    formals       go to state 42
+    formal_param  go to state 43
+
+
+state 35
+
+   33 method_decl: modifier VOID ID . OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   34            | modifier VOID ID . OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+
+    OPEN_PARANTHESIS  shift, and go to state 44
+
+
+state 36
+
+   28 variable: ID . sqr_brkt_mult
+   31 method_decl: modifier type ID . OPEN_PARANTHESIS CLOSE_PARANTHESIS block
+   32            | modifier type ID . OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block
+
+    OPEN_PARANTHESIS  shift, and go to state 45
+
+    $default  reduce using rule 29 (sqr_brkt_mult)
+
+    sqr_brkt_mult  go to state 46
+
+
+state 37
+
+   21 var_decl: type variables . SEMI_COLON
+   27 variables: variables . COMMA variable
+
+    SEMI_COLON  shift, and go to state 47
+    COMMA       shift, and go to state 48
+
+
+state 38
+
+   26 variables: variable .
+
+    $default  reduce using rule 26 (variables)
+
+
+state 39
+
+   25 type: ID .
+
+    $default  reduce using rule 25 (type)
+
+
+state 40
+
+   35 constructor_decl: modifier ID OPEN_PARANTHESIS CLOSE_PARANTHESIS . block
+
+    OPEN_BRACE  shift, and go to state 49
+
+    block  go to state 50
+
+
+state 41
+
+   39 formal_param: type . variable
+
+    ID  shift, and go to state 51
+
+    variable  go to state 52
+
+
+state 42
+
+   36 constructor_decl: modifier ID OPEN_PARANTHESIS formals . CLOSE_PARANTHESIS block
+   38 formals: formals . COMMA formal_param
+
+    COMMA              shift, and go to state 53
+    CLOSE_PARANTHESIS  shift, and go to state 54
+
+
+state 43
+
+   37 formals: formal_param .
+
+    $default  reduce using rule 37 (formals)
+
+
+state 44
+
+   33 method_decl: modifier VOID ID OPEN_PARANTHESIS . CLOSE_PARANTHESIS block
+   34            | modifier VOID ID OPEN_PARANTHESIS . formals CLOSE_PARANTHESIS block
+
+    ID                 shift, and go to state 39
+    INT                shift, and go to state 28
+    FLOAT              shift, and go to state 29
+    BOOLEAN            shift, and go to state 30
+    CLOSE_PARANTHESIS  shift, and go to state 55
+
+    type          go to state 41
+    formals       go to state 56
+    formal_param  go to state 43
+
+
+state 45
+
+   31 method_decl: modifier type ID OPEN_PARANTHESIS . CLOSE_PARANTHESIS block
+   32            | modifier type ID OPEN_PARANTHESIS . formals CLOSE_PARANTHESIS block
+
+    ID                 shift, and go to state 39
+    INT                shift, and go to state 28
+    FLOAT              shift, and go to state 29
+    BOOLEAN            shift, and go to state 30
+    CLOSE_PARANTHESIS  shift, and go to state 57
+
+    type          go to state 41
+    formals       go to state 58
+    formal_param  go to state 43
+
+
+state 46
+
+   28 variable: ID sqr_brkt_mult .
+   30 sqr_brkt_mult: sqr_brkt_mult . OPEN_SQR_BRACKET CLOSE_SQR_BRACKET
+
+    OPEN_SQR_BRACKET  shift, and go to state 59
+
+    $default  reduce using rule 28 (variable)
+
+
+state 47
+
+   21 var_decl: type variables SEMI_COLON .
+
+    $default  reduce using rule 21 (var_decl)
+
+
+state 48
+
+   27 variables: variables COMMA . variable
+
+    ID  shift, and go to state 51
+
+    variable  go to state 60
+
+
+state 49
+
+   40 block: OPEN_BRACE . stmt_mult CLOSE_BRACE
+
+    ID          shift, and go to state 39
+    COMMENT     shift, and go to state 61
+    INT         shift, and go to state 28
+    FLOAT       shift, and go to state 29
+    IF          shift, and go to state 62
+    ELSE        shift, and go to state 63
+    WHILE       shift, and go to state 64
+    RETURN      shift, and go to state 65
+    BREAK       shift, and go to state 66
+    CONTINUE    shift, and go to state 67
+    OPEN_BRACE  shift, and go to state 49
+    SEMI_COLON  shift, and go to state 68
+    BOOLEAN     shift, and go to state 30
+
+    var_decl      go to state 69
+    type          go to state 70
+    block         go to state 71
+    stmt_mult     go to state 72
+    stmt          go to state 73
+    if_stmt       go to state 74
+    if_else_stmt  go to state 75
+
+
+state 50
+
+   35 constructor_decl: modifier ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block .
+
+    $default  reduce using rule 35 (constructor_decl)
+
+
+state 51
+
+   28 variable: ID . sqr_brkt_mult
+
+    $default  reduce using rule 29 (sqr_brkt_mult)
+
+    sqr_brkt_mult  go to state 46
+
+
+state 52
+
+   39 formal_param: type variable .
+
+    $default  reduce using rule 39 (formal_param)
+
+
+state 53
+
+   38 formals: formals COMMA . formal_param
+
+    ID       shift, and go to state 39
+    INT      shift, and go to state 28
+    FLOAT    shift, and go to state 29
+    BOOLEAN  shift, and go to state 30
+
+    type          go to state 41
+    formal_param  go to state 76
+
+
+state 54
+
+   36 constructor_decl: modifier ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS . block
+
+    OPEN_BRACE  shift, and go to state 49
+
+    block  go to state 77
+
+
+state 55
+
+   33 method_decl: modifier VOID ID OPEN_PARANTHESIS CLOSE_PARANTHESIS . block
+
+    OPEN_BRACE  shift, and go to state 49
+
+    block  go to state 78
+
+
+state 56
+
+   34 method_decl: modifier VOID ID OPEN_PARANTHESIS formals . CLOSE_PARANTHESIS block
+   38 formals: formals . COMMA formal_param
+
+    COMMA              shift, and go to state 53
+    CLOSE_PARANTHESIS  shift, and go to state 79
+
+
+state 57
+
+   31 method_decl: modifier type ID OPEN_PARANTHESIS CLOSE_PARANTHESIS . block
+
+    OPEN_BRACE  shift, and go to state 49
+
+    block  go to state 80
+
+
+state 58
+
+   32 method_decl: modifier type ID OPEN_PARANTHESIS formals . CLOSE_PARANTHESIS block
+   38 formals: formals . COMMA formal_param
+
+    COMMA              shift, and go to state 53
+    CLOSE_PARANTHESIS  shift, and go to state 81
+
+
+state 59
+
+   30 sqr_brkt_mult: sqr_brkt_mult OPEN_SQR_BRACKET . CLOSE_SQR_BRACKET
+
+    CLOSE_SQR_BRACKET  shift, and go to state 82
+
+
+state 60
+
+   27 variables: variables COMMA variable .
+
+    $default  reduce using rule 27 (variables)
+
+
+state 61
+
+   51 stmt: COMMENT .
+
+    $default  reduce using rule 51 (stmt)
+
+
+state 62
+
+   54 if_stmt: IF . OPEN_PARANTHESIS expr CLOSE_PARANTHESIS stmt
+
+    OPEN_PARANTHESIS  shift, and go to state 83
+
+
+state 63
+
+   55 if_else_stmt: ELSE . stmt
+
+    ID          shift, and go to state 39
+    COMMENT     shift, and go to state 61
+    INT         shift, and go to state 28
+    FLOAT       shift, and go to state 29
+    IF          shift, and go to state 62
+    ELSE        shift, and go to state 63
+    WHILE       shift, and go to state 64
+    RETURN      shift, and go to state 65
+    BREAK       shift, and go to state 66
+    CONTINUE    shift, and go to state 67
+    OPEN_BRACE  shift, and go to state 49
+    SEMI_COLON  shift, and go to state 68
+    BOOLEAN     shift, and go to state 30
+
+    var_decl      go to state 69
+    type          go to state 70
+    block         go to state 71
+    stmt          go to state 84
+    if_stmt       go to state 74
+    if_else_stmt  go to state 75
+
+
+state 64
+
+   48 stmt: WHILE . OPEN_PARANTHESIS expr CLOSE_PARANTHESIS stmt
+
+    OPEN_PARANTHESIS  shift, and go to state 85
+
+
+state 65
+
+   46 stmt: RETURN . SEMI_COLON
+   47     | RETURN . expr SEMI_COLON
+
+    INT_CONST             shift, and go to state 86
+    FLOAT_CONST           shift, and go to state 87
+    STRING_CONST          shift, and go to state 88
+    FLOAT_CONST_MANTISSA  shift, and go to state 89
+    ID                    shift, and go to state 90
+    NULL_TOKEN            shift, and go to state 91
+    TRUE                  shift, and go to state 92
+    FALSE                 shift, and go to state 93
+    THIS                  shift, and go to state 94
+    SUPER                 shift, and go to state 95
+    NEW                   shift, and go to state 96
+    SEMI_COLON            shift, and go to state 97
+    OPEN_PARANTHESIS      shift, and go to state 98
+
+    expr               go to state 99
+    primary            go to state 100
+    literal            go to state 101
+    int_const          go to state 102
+    float_const        go to state 103
+    string_const       go to state 104
+    lhs                go to state 105
+    array_access       go to state 106
+    field_access       go to state 107
+    method_invocation  go to state 108
+
+
+state 66
+
+   44 stmt: BREAK . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 109
+
+
+state 67
+
+   45 stmt: CONTINUE . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 110
+
+
+state 68
+
+   43 stmt: SEMI_COLON .
+
+    $default  reduce using rule 43 (stmt)
+
+
+state 69
+
+   50 stmt: var_decl .
+
+    $default  reduce using rule 50 (stmt)
+
+
+state 70
+
+   21 var_decl: type . variables SEMI_COLON
+
+    ID  shift, and go to state 51
+
+    variables  go to state 37
+    variable   go to state 38
+
+
+state 71
+
+   49 stmt: block .
+
+    $default  reduce using rule 49 (stmt)
+
+
+state 72
+
+   40 block: OPEN_BRACE stmt_mult . CLOSE_BRACE
+   42 stmt_mult: stmt_mult . stmt
+
+    ID           shift, and go to state 39
+    COMMENT      shift, and go to state 61
+    INT          shift, and go to state 28
+    FLOAT        shift, and go to state 29
+    IF           shift, and go to state 62
+    ELSE         shift, and go to state 63
+    WHILE        shift, and go to state 64
+    RETURN       shift, and go to state 65
+    BREAK        shift, and go to state 66
+    CONTINUE     shift, and go to state 67
+    OPEN_BRACE   shift, and go to state 49
+    CLOSE_BRACE  shift, and go to state 111
+    SEMI_COLON   shift, and go to state 68
+    BOOLEAN      shift, and go to state 30
+
+    var_decl      go to state 69
+    type          go to state 70
+    block         go to state 71
+    stmt          go to state 112
+    if_stmt       go to state 74
+    if_else_stmt  go to state 75
+
+
+state 73
+
+   41 stmt_mult: stmt .
+
+    $default  reduce using rule 41 (stmt_mult)
+
+
+state 74
+
+   52 stmt: if_stmt .
+
+    $default  reduce using rule 52 (stmt)
+
+
+state 75
+
+   53 stmt: if_else_stmt .
+
+    $default  reduce using rule 53 (stmt)
+
+
+state 76
+
+   38 formals: formals COMMA formal_param .
+
+    $default  reduce using rule 38 (formals)
+
+
+state 77
+
+   36 constructor_decl: modifier ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block .
+
+    $default  reduce using rule 36 (constructor_decl)
+
+
+state 78
+
+   33 method_decl: modifier VOID ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block .
+
+    $default  reduce using rule 33 (method_decl)
+
+
+state 79
+
+   34 method_decl: modifier VOID ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS . block
+
+    OPEN_BRACE  shift, and go to state 49
+
+    block  go to state 113
+
+
+state 80
+
+   31 method_decl: modifier type ID OPEN_PARANTHESIS CLOSE_PARANTHESIS block .
+
+    $default  reduce using rule 31 (method_decl)
+
+
+state 81
+
+   32 method_decl: modifier type ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS . block
+
+    OPEN_BRACE  shift, and go to state 49
+
+    block  go to state 114
+
+
+state 82
+
+   30 sqr_brkt_mult: sqr_brkt_mult OPEN_SQR_BRACKET CLOSE_SQR_BRACKET .
+
+    $default  reduce using rule 30 (sqr_brkt_mult)
+
+
+state 83
+
+   54 if_stmt: IF OPEN_PARANTHESIS . expr CLOSE_PARANTHESIS stmt
+
+    INT_CONST             shift, and go to state 86
+    FLOAT_CONST           shift, and go to state 87
+    STRING_CONST          shift, and go to state 88
+    FLOAT_CONST_MANTISSA  shift, and go to state 89
+    ID                    shift, and go to state 90
+    NULL_TOKEN            shift, and go to state 91
+    TRUE                  shift, and go to state 92
+    FALSE                 shift, and go to state 93
+    THIS                  shift, and go to state 94
+    SUPER                 shift, and go to state 95
+    NEW                   shift, and go to state 96
+    OPEN_PARANTHESIS      shift, and go to state 98
+
+    expr               go to state 115
+    primary            go to state 100
+    literal            go to state 101
+    int_const          go to state 102
+    float_const        go to state 103
+    string_const       go to state 104
+    lhs                go to state 105
+    array_access       go to state 106
+    field_access       go to state 107
+    method_invocation  go to state 108
+
+
+state 84
+
+   55 if_else_stmt: ELSE stmt .
+
+    $default  reduce using rule 55 (if_else_stmt)
+
+
+state 85
+
+   48 stmt: WHILE OPEN_PARANTHESIS . expr CLOSE_PARANTHESIS stmt
+
+    INT_CONST             shift, and go to state 86
+    FLOAT_CONST           shift, and go to state 87
+    STRING_CONST          shift, and go to state 88
+    FLOAT_CONST_MANTISSA  shift, and go to state 89
+    ID                    shift, and go to state 90
+    NULL_TOKEN            shift, and go to state 91
+    TRUE                  shift, and go to state 92
+    FALSE                 shift, and go to state 93
+    THIS                  shift, and go to state 94
+    SUPER                 shift, and go to state 95
+    NEW                   shift, and go to state 96
+    OPEN_PARANTHESIS      shift, and go to state 98
+
+    expr               go to state 116
+    primary            go to state 100
+    literal            go to state 101
+    int_const          go to state 102
+    float_const        go to state 103
+    string_const       go to state 104
+    lhs                go to state 105
+    array_access       go to state 106
+    field_access       go to state 107
+    method_invocation  go to state 108
+
+
+state 86
+
+   70 int_const: INT_CONST .
+
+    $default  reduce using rule 70 (int_const)
+
+
+state 87
+
+   71 float_const: FLOAT_CONST .
+
+    $default  reduce using rule 71 (float_const)
+
+
+state 88
+
+   73 string_const: STRING_CONST .
+
+    $default  reduce using rule 73 (string_const)
+
+
+state 89
+
+   72 float_const: FLOAT_CONST_MANTISSA .
+
+    $default  reduce using rule 72 (float_const)
+
+
+state 90
+
+   81 field_access: ID .
+
+    $default  reduce using rule 81 (field_access)
+
+
+state 91
+
+   67 literal: NULL_TOKEN .
+
+    $default  reduce using rule 67 (literal)
+
+
+state 92
+
+   68 literal: TRUE .
+
+    $default  reduce using rule 68 (literal)
+
+
+state 93
+
+   69 literal: FALSE .
+
+    $default  reduce using rule 69 (literal)
+
+
+state 94
+
+   58 primary: THIS .
+
+    $default  reduce using rule 58 (primary)
+
+
+state 95
+
+   59 primary: SUPER .
+
+    $default  reduce using rule 59 (primary)
+
+
+state 96
+
+   61 primary: NEW . ID OPEN_PARANTHESIS CLOSE_PARANTHESIS
+   62        | NEW . ID OPEN_PARANTHESIS arguments CLOSE_PARANTHESIS
+
+    ID  shift, and go to state 117
+
+
+state 97
+
+   46 stmt: RETURN SEMI_COLON .
+
+    $default  reduce using rule 46 (stmt)
+
+
+state 98
+
+   60 primary: OPEN_PARANTHESIS . expr CLOSE_PARANTHESIS
+
+    INT_CONST             shift, and go to state 86
+    FLOAT_CONST           shift, and go to state 87
+    STRING_CONST          shift, and go to state 88
+    FLOAT_CONST_MANTISSA  shift, and go to state 89
+    ID                    shift, and go to state 90
+    NULL_TOKEN            shift, and go to state 91
+    TRUE                  shift, and go to state 92
+    FALSE                 shift, and go to state 93
+    THIS                  shift, and go to state 94
+    SUPER                 shift, and go to state 95
+    NEW                   shift, and go to state 96
+    OPEN_PARANTHESIS      shift, and go to state 98
+
+    expr               go to state 118
+    primary            go to state 100
+    literal            go to state 101
+    int_const          go to state 102
+    float_const        go to state 103
+    string_const       go to state 104
+    lhs                go to state 105
+    array_access       go to state 106
+    field_access       go to state 107
+    method_invocation  go to state 108
+
+
+state 99
+
+   47 stmt: RETURN expr . SEMI_COLON
+
+    SEMI_COLON  shift, and go to state 119
+
+
+state 100
+
+   56 expr: primary .
+   79 array_access: primary . OPEN_SQR_BRACKET expr CLOSE_SQR_BRACKET
+   80 field_access: primary . DOT ID
+
+    DOT               shift, and go to state 120
+    OPEN_SQR_BRACKET  shift, and go to state 121
+
+    $default  reduce using rule 56 (expr)
+
+
+state 101
+
+   57 primary: literal .
+
+    $default  reduce using rule 57 (primary)
+
+
+state 102
+
+   64 literal: int_const .
+
+    $default  reduce using rule 64 (literal)
+
+
+state 103
+
+   65 literal: float_const .
+
+    $default  reduce using rule 65 (literal)
+
+
+state 104
+
+   66 literal: string_const .
+
+    $default  reduce using rule 66 (literal)
+
+
+state 105
+
+   63 primary: lhs .
+
+    $default  reduce using rule 63 (primary)
+
+
+state 106
+
+   76 lhs: array_access .
+
+    $default  reduce using rule 76 (lhs)
+
+
+state 107
+
+   77 lhs: field_access .
+   82 method_invocation: field_access . OPEN_PARANTHESIS CLOSE_PARANTHESIS
+   83                  | field_access . OPEN_PARANTHESIS arguments CLOSE_PARANTHESIS
+
+    OPEN_PARANTHESIS  shift, and go to state 122
+
+    $default  reduce using rule 77 (lhs)
+
+
+state 108
+
+   78 lhs: method_invocation .
+
+    $default  reduce using rule 78 (lhs)
+
+
+state 109
+
+   44 stmt: BREAK SEMI_COLON .
+
+    $default  reduce using rule 44 (stmt)
+
+
+state 110
+
+   45 stmt: CONTINUE SEMI_COLON .
+
+    $default  reduce using rule 45 (stmt)
+
+
+state 111
+
+   40 block: OPEN_BRACE stmt_mult CLOSE_BRACE .
+
+    $default  reduce using rule 40 (block)
+
+
+state 112
+
+   42 stmt_mult: stmt_mult stmt .
+
+    $default  reduce using rule 42 (stmt_mult)
+
+
+state 113
+
+   34 method_decl: modifier VOID ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block .
+
+    $default  reduce using rule 34 (method_decl)
+
+
+state 114
+
+   32 method_decl: modifier type ID OPEN_PARANTHESIS formals CLOSE_PARANTHESIS block .
+
+    $default  reduce using rule 32 (method_decl)
+
+
+state 115
+
+   54 if_stmt: IF OPEN_PARANTHESIS expr . CLOSE_PARANTHESIS stmt
+
+    CLOSE_PARANTHESIS  shift, and go to state 123
+
+
+state 116
+
+   48 stmt: WHILE OPEN_PARANTHESIS expr . CLOSE_PARANTHESIS stmt
+
+    CLOSE_PARANTHESIS  shift, and go to state 124
+
+
+state 117
+
+   61 primary: NEW ID . OPEN_PARANTHESIS CLOSE_PARANTHESIS
+   62        | NEW ID . OPEN_PARANTHESIS arguments CLOSE_PARANTHESIS
+
+    OPEN_PARANTHESIS  shift, and go to state 125
+
+
+state 118
+
+   60 primary: OPEN_PARANTHESIS expr . CLOSE_PARANTHESIS
+
+    CLOSE_PARANTHESIS  shift, and go to state 126
+
+
+state 119
+
+   47 stmt: RETURN expr SEMI_COLON .
+
+    $default  reduce using rule 47 (stmt)
+
+
+state 120
+
+   80 field_access: primary DOT . ID
+
+    ID  shift, and go to state 127
+
+
+state 121
+
+   79 array_access: primary OPEN_SQR_BRACKET . expr CLOSE_SQR_BRACKET
+
+    INT_CONST             shift, and go to state 86
+    FLOAT_CONST           shift, and go to state 87
+    STRING_CONST          shift, and go to state 88
+    FLOAT_CONST_MANTISSA  shift, and go to state 89
+    ID                    shift, and go to state 90
+    NULL_TOKEN            shift, and go to state 91
+    TRUE                  shift, and go to state 92
+    FALSE                 shift, and go to state 93
+    THIS                  shift, and go to state 94
+    SUPER                 shift, and go to state 95
+    NEW                   shift, and go to state 96
+    OPEN_PARANTHESIS      shift, and go to state 98
+
+    expr               go to state 128
+    primary            go to state 100
+    literal            go to state 101
+    int_const          go to state 102
+    float_const        go to state 103
+    string_const       go to state 104
+    lhs                go to state 105
+    array_access       go to state 106
+    field_access       go to state 107
+    method_invocation  go to state 108
+
+
+state 122
+
+   82 method_invocation: field_access OPEN_PARANTHESIS . CLOSE_PARANTHESIS
+   83                  | field_access OPEN_PARANTHESIS . arguments CLOSE_PARANTHESIS
+
+    INT_CONST             shift, and go to state 86
+    FLOAT_CONST           shift, and go to state 87
+    STRING_CONST          shift, and go to state 88
+    FLOAT_CONST_MANTISSA  shift, and go to state 89
+    ID                    shift, and go to state 90
+    NULL_TOKEN            shift, and go to state 91
+    TRUE                  shift, and go to state 92
+    FALSE                 shift, and go to state 93
+    THIS                  shift, and go to state 94
+    SUPER                 shift, and go to state 95
+    NEW                   shift, and go to state 96
+    OPEN_PARANTHESIS      shift, and go to state 98
+    CLOSE_PARANTHESIS     shift, and go to state 129
+
+    expr               go to state 130
+    primary            go to state 100
+    literal            go to state 101
+    int_const          go to state 102
+    float_const        go to state 103
+    string_const       go to state 104
+    arguments          go to state 131
+    lhs                go to state 105
+    array_access       go to state 106
+    field_access       go to state 107
+    method_invocation  go to state 108
+
+
+state 123
+
+   54 if_stmt: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS . stmt
+
+    ID          shift, and go to state 39
+    COMMENT     shift, and go to state 61
+    INT         shift, and go to state 28
+    FLOAT       shift, and go to state 29
+    IF          shift, and go to state 62
+    ELSE        shift, and go to state 63
+    WHILE       shift, and go to state 64
+    RETURN      shift, and go to state 65
+    BREAK       shift, and go to state 66
+    CONTINUE    shift, and go to state 67
+    OPEN_BRACE  shift, and go to state 49
+    SEMI_COLON  shift, and go to state 68
+    BOOLEAN     shift, and go to state 30
+
+    var_decl      go to state 69
+    type          go to state 70
+    block         go to state 71
+    stmt          go to state 132
+    if_stmt       go to state 74
+    if_else_stmt  go to state 75
+
+
+state 124
+
+   48 stmt: WHILE OPEN_PARANTHESIS expr CLOSE_PARANTHESIS . stmt
+
+    ID          shift, and go to state 39
+    COMMENT     shift, and go to state 61
+    INT         shift, and go to state 28
+    FLOAT       shift, and go to state 29
+    IF          shift, and go to state 62
+    ELSE        shift, and go to state 63
+    WHILE       shift, and go to state 64
+    RETURN      shift, and go to state 65
+    BREAK       shift, and go to state 66
+    CONTINUE    shift, and go to state 67
+    OPEN_BRACE  shift, and go to state 49
+    SEMI_COLON  shift, and go to state 68
+    BOOLEAN     shift, and go to state 30
+
+    var_decl      go to state 69
+    type          go to state 70
+    block         go to state 71
+    stmt          go to state 133
+    if_stmt       go to state 74
+    if_else_stmt  go to state 75
+
+
+state 125
+
+   61 primary: NEW ID OPEN_PARANTHESIS . CLOSE_PARANTHESIS
+   62        | NEW ID OPEN_PARANTHESIS . arguments CLOSE_PARANTHESIS
+
+    INT_CONST             shift, and go to state 86
+    FLOAT_CONST           shift, and go to state 87
+    STRING_CONST          shift, and go to state 88
+    FLOAT_CONST_MANTISSA  shift, and go to state 89
+    ID                    shift, and go to state 90
+    NULL_TOKEN            shift, and go to state 91
+    TRUE                  shift, and go to state 92
+    FALSE                 shift, and go to state 93
+    THIS                  shift, and go to state 94
+    SUPER                 shift, and go to state 95
+    NEW                   shift, and go to state 96
+    OPEN_PARANTHESIS      shift, and go to state 98
+    CLOSE_PARANTHESIS     shift, and go to state 134
+
+    expr               go to state 130
+    primary            go to state 100
+    literal            go to state 101
+    int_const          go to state 102
+    float_const        go to state 103
+    string_const       go to state 104
+    arguments          go to state 135
+    lhs                go to state 105
+    array_access       go to state 106
+    field_access       go to state 107
+    method_invocation  go to state 108
+
+
+state 126
+
+   60 primary: OPEN_PARANTHESIS expr CLOSE_PARANTHESIS .
+
+    $default  reduce using rule 60 (primary)
+
+
+state 127
+
+   80 field_access: primary DOT ID .
+
+    $default  reduce using rule 80 (field_access)
+
+
+state 128
+
+   79 array_access: primary OPEN_SQR_BRACKET expr . CLOSE_SQR_BRACKET
+
+    CLOSE_SQR_BRACKET  shift, and go to state 136
+
+
+state 129
+
+   82 method_invocation: field_access OPEN_PARANTHESIS CLOSE_PARANTHESIS .
+
+    $default  reduce using rule 82 (method_invocation)
+
+
+state 130
+
+   74 arguments: expr .
+
+    $default  reduce using rule 74 (arguments)
+
+
+state 131
+
+   75 arguments: arguments . COMMA expr
+   83 method_invocation: field_access OPEN_PARANTHESIS arguments . CLOSE_PARANTHESIS
+
+    COMMA              shift, and go to state 137
+    CLOSE_PARANTHESIS  shift, and go to state 138
+
+
+state 132
+
+   54 if_stmt: IF OPEN_PARANTHESIS expr CLOSE_PARANTHESIS stmt .
+
+    $default  reduce using rule 54 (if_stmt)
+
+
+state 133
+
+   48 stmt: WHILE OPEN_PARANTHESIS expr CLOSE_PARANTHESIS stmt .
+
+    $default  reduce using rule 48 (stmt)
+
+
+state 134
+
+   61 primary: NEW ID OPEN_PARANTHESIS CLOSE_PARANTHESIS .
+
+    $default  reduce using rule 61 (primary)
+
+
+state 135
+
+   62 primary: NEW ID OPEN_PARANTHESIS arguments . CLOSE_PARANTHESIS
+   75 arguments: arguments . COMMA expr
+
+    COMMA              shift, and go to state 137
+    CLOSE_PARANTHESIS  shift, and go to state 139
+
+
+state 136
+
+   79 array_access: primary OPEN_SQR_BRACKET expr CLOSE_SQR_BRACKET .
+
+    $default  reduce using rule 79 (array_access)
+
+
+state 137
+
+   75 arguments: arguments COMMA . expr
+
+    INT_CONST             shift, and go to state 86
+    FLOAT_CONST           shift, and go to state 87
+    STRING_CONST          shift, and go to state 88
+    FLOAT_CONST_MANTISSA  shift, and go to state 89
+    ID                    shift, and go to state 90
+    NULL_TOKEN            shift, and go to state 91
+    TRUE                  shift, and go to state 92
+    FALSE                 shift, and go to state 93
+    THIS                  shift, and go to state 94
+    SUPER                 shift, and go to state 95
+    NEW                   shift, and go to state 96
+    OPEN_PARANTHESIS      shift, and go to state 98
+
+    expr               go to state 140
+    primary            go to state 100
+    literal            go to state 101
+    int_const          go to state 102
+    float_const        go to state 103
+    string_const       go to state 104
+    lhs                go to state 105
+    array_access       go to state 106
+    field_access       go to state 107
+    method_invocation  go to state 108
+
+
+state 138
+
+   83 method_invocation: field_access OPEN_PARANTHESIS arguments CLOSE_PARANTHESIS .
+
+    $default  reduce using rule 83 (method_invocation)
+
+
+state 139
+
+   62 primary: NEW ID OPEN_PARANTHESIS arguments CLOSE_PARANTHESIS .
+
+    $default  reduce using rule 62 (primary)
+
+
+state 140
+
+   75 arguments: arguments COMMA expr .
+
+    $default  reduce using rule 75 (arguments)

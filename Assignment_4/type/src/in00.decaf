@@ -1,0 +1,8 @@
+class C {
+	void func()
+	{
+		float y,x;
+		boolean z;
+		y = (x+z)*y;
+	}
+}

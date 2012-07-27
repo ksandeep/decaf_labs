@@ -1,0 +1,28 @@
+class abc
+{
+	int abl;
+	int a;
+}
+
+class a2 extends a_2
+{
+	int z;
+
+	public static int func1(int x)
+	{
+		def  = new abc[10];
+		int x;
+		print("hi how areyou \" cool\" ;'iasdi  \n\t");
+		x = new int[10];
+		a = uabc;
+		return x;
+		if(awesome)
+		{
+		}
+		else
+		{}
+	}
+	
+	
+}
+

@@ -1,0 +1,24 @@
+class a
+{
+	public int x;
+
+}
+
+class IntList extends a{
+	private int element;
+	int x;
+	public int get_element(int x, int y) {
+		x = x+y;
+		return this.element;
+	}
+	public int sum() {
+		int y;
+		x = y;
+		if (this == null)
+			return null;
+		else
+			return this.get_element()  + next.sum();
+		return x;
+	}
+}
+
